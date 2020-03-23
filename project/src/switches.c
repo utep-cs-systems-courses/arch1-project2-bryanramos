@@ -30,7 +30,9 @@ void switch_interrupt_handler(){
   else if (!(p2val & SW1)){ // play song 1 when song 1 is pressed
     tempo = 12;
     song1();
-    led_update();
+    switch_state_down = 1;
   }
+  switch_state_changed = 1;
+  led_update();
 }
  
