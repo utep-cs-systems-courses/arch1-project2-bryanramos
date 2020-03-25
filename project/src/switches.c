@@ -23,13 +23,25 @@ void switch_init(){ //setup switch
 
 void switch_interrupt_handler(){ 
   char p2val = switch_update_interrupt_sense();
-  if (p2val & SW1){
+  if (p2val & SW1 && p2val & SW2 && p2val & SW3 && p2val & SW4){
     buzzer_set_period(0);
     switch_state_down = 0;
   }
   else if (!(p2val & SW1)){ // play song 1 when song 1 is pressed
     tempo = 12;
     song1();
+    switch_state_down = 1;
+  } else if (!(p2val & SW2)) {
+    tempo = 22;
+    song2();
+    switch_state_down = 1;
+  } else if (!(p2val & SW3)) {
+    tempo = 30;
+    song3();
+    switch_state_down = 1;
+  } else if (!(p2val & SW4)) {
+    tempo = 20;
+    song4();
     switch_state_down = 1;
   }
   switch_state_changed = 1;
