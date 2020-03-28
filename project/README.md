@@ -1,12 +1,11 @@
- 
-## Project 2 Blinky-Buzzy Toy
+# Project 2 Blinky-Buzzy Toy
 
 The purpose of this project was to understand the MSP430's architecture and
 how the launchpad board work - leds, buzzer and switches work in unison.
 To successfully complete the lab, we were to make a toy that had changing
 lights, made use of the buttons on the launchpad (green) board and made noise.
 
-# Functions of the toy:
+## Functions of the toy:
 
 * The toy will start of with a red LED on and no noise, kind of a standby or off state.
 * When any of the switches on the green board is pressed down, a unique song
@@ -14,7 +13,7 @@ lights, made use of the buttons on the launchpad (green) board and made noise.
 * When a button is released, the toy goes back into the initial, standby state
   with no noise and just the red LED on.
 
-# Running Toy:
+## Running Toy:
 
 * Make sure the MSP430 is connected via USB.
 * Open up the /src folder.
