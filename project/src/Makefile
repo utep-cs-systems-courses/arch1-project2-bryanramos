@@ -10,7 +10,7 @@ AS              = msp430-elf-as
 all: project2.elf
 
 #additional rules for files
-project2.elf: ${COMMON_OBJECTS} buzzer.o interrupts.o led.o switches.o projectMain.o ../lib/libTimer.a
+project2.elf: ${COMMON_OBJECTS} projectMain.o stateMachines.o buzzer.o interrupts.o led.o switches.o ../lib/libTimer.a
 	${CC} ${CFLAGS} -o $@ $^
 
 load: project2.elf

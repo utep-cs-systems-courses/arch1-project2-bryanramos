@@ -4,7 +4,10 @@
 #include "switches.h"
 #include "buzzer.h"
 
-char switch_state_down, switch_state_changed, tempo; 
+char switch_state_changed; // // depending on the state, used to change the lights 
+char tempo; // to customize tempo of individual songs 
+
+char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down;
 
 static char switch_update_interrupt_sense(){
   char p2val = P2IN;
@@ -16,35 +19,38 @@ static char switch_update_interrupt_sense(){
 
 void switch_init(){ //setup switch
   P2REN |= SWITCHES; //enables resistors for switches
-  P2IE |= SWITCHES; //enable interrupts from switches
+  P2IE = SWITCHES; //enable interrupts from switches
   P2OUT |= SWITCHES; //pull-ups for switches
   P2DIR &= ~SWITCHES; //set switches' bits for input
+  switch_update_interrupt_sense();
 }
 
 void switch_interrupt_handler(){ 
   char p2val = switch_update_interrupt_sense();
-  if (p2val & SW1 && p2val & SW2 && p2val & SW3 && p2val & SW4){
-    buzzer_set_period(0);
-    switch_state_down = 0;
-  }
-  else if (!(p2val & SW1)){ // play song 1 when song 1 is pressed
+  // 0 when switch is up
+  switch1_state_down = (p2val & SW1) ? 1 : 0;
+  switch2_state_down = (p2val & SW2) ? 1 : 0;
+  switch3_state_down = (p2val & SW3) ? 1 : 0;
+  switch4_state_down = (p2val & SW4) ? 1 : 0;
+  
+  buzzer_set_period(0);
+  if (!(p2val & switch1_state_down)) {
     tempo = 12;
     song1();
-    switch_state_down = 1;
-  } else if (!(p2val & SW2)) {
+    switch_state_changed = 1;
+  } else if (!(p2val & switch2_state_down)) {
     tempo = 22;
     song2();
-    switch_state_down = 1;
-  } else if (!(p2val & SW3)) {
+    switch_state_changed = 2;
+  } 
+  else if (!(p2val & switch3_state_down)) {
     tempo = 30;
     song3();
-    switch_state_down = 1;
-  } else if (!(p2val & SW4)) {
+    switch_state_changed = 3;
+  } 
+  else if (!(p2val & switch4_state_down)) {
     tempo = 20;
     song4();
-    switch_state_down = 1;
+    switch_state_changed = 4;
   }
-  switch_state_changed = 1;
-  led_update();
 }
- 

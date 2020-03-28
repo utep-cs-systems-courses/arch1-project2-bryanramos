@@ -11,7 +11,9 @@
 void switch_init();
 void switch_interrupt_handler();
 
-extern char switch_state_down, switch_state_changed, tempo;
+extern char switch_state_changed, tempo;
+extern char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down;
+extern char ledMode;
 
 #endif
  
