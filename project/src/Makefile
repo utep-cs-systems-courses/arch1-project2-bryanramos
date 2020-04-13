@@ -5,13 +5,14 @@ CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
-AS              = msp430-elf-as
+AS              = msp430-elf-as	-mcpu=msp430 --traditional-format -mP
 
 all: project2.elf
 
 #additional rules for files
-project2.elf: ${COMMON_OBJECTS} projectMain.o stateMachines.o buzzer.o interrupts.o led.o switches.o ../lib/libTimer.a
-	${CC} ${CFLAGS} -o $@ $^
+project2.elf: ${COMMON_OBJECTS} stateMachines.o buzzer.o interrupts.o led.o switches.o projectMain.o ../lib/libTimer.a
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
+	
 
 load: project2.elf
 	msp430loader.sh project2.elf
@@ -19,14 +20,3 @@ load: project2.elf
 clean:
 	rm -f *.o *.elf
 	
-projectMain.c: buzzer.h switches.h
-buzzer.c: buzzer.h
-switches.c: switches.h buzzer.h led.h
-interrupts.c: switches.h led.h stateMachines.h buzzer.h
-led.c: led.h stateMachines.h
-stateMachine.c: stateMachines.h led.h switches.h
-
-
-
-
-
