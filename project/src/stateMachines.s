@@ -26,16 +26,16 @@ state_advance:
         
 default:
         
-case1:  
+case1:  ; will toggle red light only alongside song 1 being played, see switches.c
         call #toggle_red
         jmp end
-case2:  
+case2:  ; will toggle green light only alongside song 2 being played, see switches.c
         call #toggle_green
         jmp end
-case3:  
+case3:  ; will toggle both the green and red lights, alongside song 3 being played, see switches.c
         call #toggle_both
         JMP end
-case4:  
+case4:  ; will toggle both lights off, alongside song 4 being played, see switches.c
         call #toggle_both_off
         jmp end
         

@@ -20,3 +20,14 @@ load: project2.elf
 clean:
 	rm -f *.o *.elf
 	
+buzzer.o: buzzer.c buzzer.h
+
+led.o: led.c led.h switches.h
+
+switches.o: switches.c led.h switches.h buzzer.h
+
+stateMachines.o: stateMachines.s stateMachines.h led.h switches.h
+
+projectMain.o: projectMain.c buzzer.h led.h switches.h
+
+interrupts.o: interrupts.c
